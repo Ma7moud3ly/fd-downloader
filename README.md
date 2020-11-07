@@ -32,5 +32,5 @@
 
 
 <br>
-[Download](https://play.google.com/store/apps/details?id=com.ma7moud3ly.akla)
+[Download](https://play.google.com/store/apps/details?id=com.ma7moud3ly.fd)
 </div>
