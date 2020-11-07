@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">F-Downloader</string>
+    <string name="app_about">Video Downloader For Facebook</string>
+
+    <string name="download_enabled">You can download videos now..</string>
+    <string name="need_storage_permission">You must enable the external storage permission to download the video.</string>
+    <string name="invalid_link">invalid video link</string>
+
+    <!--about layout-->
+    <string name="share"> Share With Friends</string>
+    <string name="rate"> Rate On Google Play</string>
+    <string name="contact"> Contact Developer</string>
+    <string name="version">Version</string>
+    <!--video layout-->
+    <string name="size">Size</string>
+    <string name="quality">Quality</string>
+    <string name="resolution">Resolution</string>
+    <string name="duration">Duration</string>
+    <string name="_share">Share</string>
+    <string name="download">Download</string>
+    <string name="copy">Copy</string>
+    <string name="play">Play</string>
+    <string name="stop">Stop</string>
+    <string name="loading">Extracting Video.."</string>
+    <string name="video_exists">Video Already Exists</string>
+    <string name="video_failed">failed to play this video...</string>
+    <string name="paste">Paste video url here</string>
+    <string name="no_downloads">No Downloads..</string>
+
+</resources>

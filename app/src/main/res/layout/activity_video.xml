@@ -1,0 +1,235 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="observer"
+            type="com.ma7moud3ly.fd.observers.VideoObserver" />
+
+        <variable
+            name="video"
+            type="com.ma7moud3ly.fd.downloader.Video" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/video_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical"
+            android:visibility="@{observer.loading.booleanValue()?View.GONE:View.VISIBLE}">
+
+
+            <include
+                android:id="@+id/header_layout"
+                layout="@layout/header" />
+
+            <FrameLayout
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/player_height"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:scaleType="centerCrop"
+                    android:visibility="@{observer.play.booleanValue()?View.GONE:View.VISIBLE}"
+                    app:loadImage='@{video.thumbnail}' />
+
+                <com.google.android.exoplayer2.ui.StyledPlayerView
+                    android:id="@+id/exoplayer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/player_height"
+                    android:visibility="@{observer.play.booleanValue()?View.VISIBLE:View.GONE}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_margin="5dp"
+                    android:animateLayoutChanges="true"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        style="@style/player_button"
+                        android:backgroundTint="@color/transBlack"
+                        android:onClick="@{v->observer.playVideo(v,video)}"
+                        android:visibility="@{observer.play.booleanValue()?View.GONE:View.VISIBLE}">
+
+                        <ImageView
+                            style="@style/player_button_icon"
+                            android:padding="3dp"
+                            android:src="@drawable/play" />
+
+                        <TextView
+                            style="@style/player_button_label"
+                            android:text="@string/play" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/player_button"
+                        android:backgroundTint="@color/transBlack"
+                        android:onClick="@{v->observer.stopVideo(v)}"
+                        android:visibility='@{observer.play.booleanValue() &amp;&amp; observer.showControllers.booleanValue()?View.VISIBLE:View.GONE}'>
+
+                        <ImageView
+                            style="@style/player_button_icon"
+                            android:src="@drawable/stop" />
+
+                        <TextView
+                            style="@style/player_button_label"
+                            android:text="@string/stop" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/player_button"
+                        android:backgroundTint="@color/transBlack"
+                        android:onClick="download"
+                        android:visibility='@{observer.showControllers.booleanValue()?View.VISIBLE:View.GONE}'>
+
+                        <ImageView
+                            style="@style/player_button_icon"
+                            android:padding="5dp"
+                            android:src="@drawable/download" />
+
+                        <TextView
+                            style="@style/player_button_label"
+                            android:text="@string/download" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </FrameLayout>
+
+            <!--section-->
+            <LinearLayout style="@style/details_section">
+
+                <TextView
+                    style="@style/details_text_view"
+                    android:layout_width="match_parent"
+                    android:text="@{video.description}" />
+            </LinearLayout>
+
+            <!--section-->
+            <LinearLayout
+                style="@style/details_section"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/details_text_view"
+                    android:text="@string/size" />
+
+                <View style="@style/details_section_split" />
+
+                <TextView
+                    style="@style/details_text_view_n"
+                    android:text='@{video.size,default=@string/size}' />
+
+            </LinearLayout>
+            <!--section-->
+            <LinearLayout style="@style/details_section">
+
+                <TextView
+                    style="@style/details_text_view"
+                    android:text="@string/resolution" />
+
+                <View style="@style/details_section_split" />
+
+                <TextView
+                    style="@style/details_text_view_n"
+                    android:text='@{video.width+" x "+video.height,default=@string/resolution}' />
+
+            </LinearLayout>
+            <!--section-->
+            <LinearLayout style="@style/details_section">
+
+                <TextView
+                    style="@style/details_text_view"
+                    android:text="@string/duration" />
+
+                <View style="@style/details_section_split" />
+
+                <TextView
+                    style="@style/details_text_view_n"
+                    android:text='@{video.duration.replace("T","").replace("M","m ").replace("S","s"),default=@string/duration}' />
+
+            </LinearLayout>
+            <!--section-->
+            <LinearLayout style="@style/details_section">
+
+                <TextView
+                    style="@style/details_text_view"
+                    android:text="@string/quality" />
+
+                <View style="@style/details_section_split" />
+
+                <TextView
+                    style="@style/details_text_view_n"
+                    android:text='@{video.quality,default=@string/quality}' />
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingHorizontal="50dp"
+                android:paddingVertical="10dp">
+
+                <ImageView
+                    style="@style/details_section_img"
+                    android:layout_width="41dp"
+                    android:layout_gravity="start|top"
+                    android:onClick="@{v->observer.shareVideo(v,video)}"
+                    android:src="@drawable/share" />
+
+                <TextView
+                    style="@style/details_section_label"
+                    android:layout_gravity="start|bottom"
+                    android:layout_marginStart="5dp"
+                    android:onClick="@{v->observer.shareVideo(v,video)}"
+                    android:text="@string/_share" />
+
+                <ImageView
+                    style="@style/details_section_img"
+                    android:layout_gravity="center|top"
+                    android:onClick="download"
+                    android:src="@drawable/download" />
+
+                <TextView
+                    style="@style/details_section_label"
+                    android:layout_gravity="center|bottom"
+                    android:onClick="download"
+                    android:text="@string/download" />
+
+
+                <ImageView
+                    style="@style/details_section_img"
+                    android:layout_gravity="end|top"
+                    android:onClick="@{v->observer.copyVideo(v,video)}"
+                    android:src="@drawable/copy" />
+
+                <TextView
+                    style="@style/details_section_label"
+                    android:layout_gravity="end|bottom"
+                    android:onClick="@{v->observer.copyVideo(v,video)}"
+                    android:text="@string/copy" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

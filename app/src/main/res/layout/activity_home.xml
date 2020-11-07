@@ -1,0 +1,96 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="observer"
+            type="com.ma7moud3ly.fd.observers.VideoObserver" />
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <include
+            android:id="@+id/search_layout"
+            layout="@layout/search" />
+
+        <FrameLayout
+            android:id="@+id/video_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/player_height"
+            android:visibility='@{observer.play.booleanValue()?View.VISIBLE:View.GONE}'>
+
+            <com.google.android.exoplayer2.ui.StyledPlayerView
+                android:id="@+id/exoplayer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/player_height"
+                android:visibility="@{observer.play.booleanValue()?View.VISIBLE:View.GONE}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                style="@style/player_button"
+                android:layout_gravity="start|top"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/transWhite"
+                android:onClick="@{v->observer.stopVideo(v)}"
+                android:visibility='@{observer.play.booleanValue() &amp;&amp; observer.showControllers.booleanValue()?View.VISIBLE:View.GONE}'>
+
+                <ImageView
+                    style="@style/player_button_icon"
+                    android:src="@drawable/stop" />
+
+                <TextView
+                    style="@style/player_button_label"
+                    android:text="@string/stop" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="@{observer.noDownloads.booleanValue()?View.GONE:View.VISIBLE,default=gone}" />
+
+        <LinearLayout
+            android:id="@+id/no_downloads"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="@{observer.noDownloads.booleanValue()?View.VISIBLE:View.GONE,default=visible}">
+
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:src="@drawable/video"
+                app:tint="@color/colorPrimaryLight" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif-monospace"
+                android:gravity="center"
+                android:text="@string/no_downloads"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

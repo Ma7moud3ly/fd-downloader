@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="details_img_hw">20dp</dimen>
+    <dimen name="player_height">300dp</dimen>
+    <dimen name="player_button_wh">30dp</dimen>
+
+</resources>

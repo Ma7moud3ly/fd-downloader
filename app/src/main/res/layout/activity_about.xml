@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="39dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/logo" />
+
+            <TextView
+                style="@style/about_text_view"
+                android:text="@string/app_about"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/app_version"
+                style="@style/about_text_view"
+                android:text="@string/version"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rate"
+            style="@style/about_section">
+
+
+            <ImageView
+                style="@style/about_text_icon"
+                android:src="@drawable/ic_star_border_black_24dp" />
+
+            <TextView
+                style="@style/about_text_view"
+                android:text="@string/rate" />
+
+        </LinearLayout><!--section-->
+
+        <LinearLayout
+            android:id="@+id/share"
+            style="@style/about_section">
+
+            <ImageView
+                style="@style/about_text_icon"
+                android:src="@drawable/ic_share_black_24dp" />
+
+            <TextView
+                style="@style/about_text_view"
+                android:text="@string/share" />
+
+        </LinearLayout><!--section-->
+
+        <LinearLayout
+            android:id="@+id/contact"
+            style="@style/about_section">
+
+
+            <ImageView
+                style="@style/about_text_icon"
+                android:src="@drawable/ic_android_black_24dp" />
+
+            <TextView
+                style="@style/about_text_view"
+                android:text="@string/contact" />
+
+        </LinearLayout><!--section-->
+
+
+    </LinearLayout>
+
+</ScrollView>
