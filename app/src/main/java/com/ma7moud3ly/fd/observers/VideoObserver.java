@@ -4,17 +4,19 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.MediaItem;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.ma7moud3ly.fd.App;
 import com.ma7moud3ly.fd.R;
 import com.ma7moud3ly.fd.downloader.SavedVideo;
 import com.ma7moud3ly.fd.downloader.Video;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -24,6 +26,7 @@ import androidx.databinding.ObservableField;
 public class VideoObserver {
     public ObservableField<Boolean> loading = new ObservableField<>();
     public ObservableField<Boolean> play = new ObservableField<>();
+    public ObservableField<Boolean> downloading = new ObservableField<>();
     public ObservableField<Boolean> showControllers = new ObservableField<>();
     public ObservableField<Boolean> noDownloads = new ObservableField<>();
     private SimpleExoPlayer exoPlayer;
@@ -33,6 +36,7 @@ public class VideoObserver {
         play.set(false);
         showControllers.set(true);
         noDownloads.set(true);
+        downloading.set(false);
         this.exoPlayer = exoPlayer;
     }
 
@@ -45,6 +49,20 @@ public class VideoObserver {
             exoPlayer.play();
         } catch (Exception e) {
             App.toast(v.getContext().getString(R.string.video_failed));
+            e.printStackTrace();
+        }
+    }
+
+    public void playVideo(String video, Long position, Context context) {
+        try {
+            play.set(true);
+            MediaItem mediaItem = MediaItem.fromUri(video);
+            exoPlayer.setMediaItem(mediaItem);
+            exoPlayer.prepare();
+            exoPlayer.seekTo(position);
+            exoPlayer.play();
+        } catch (Exception e) {
+            App.toast(context.getString(R.string.video_failed));
             e.printStackTrace();
         }
     }
@@ -95,16 +113,15 @@ public class VideoObserver {
 
     @BindingAdapter("loadImage")
     public static void loadImage(ImageView v, String src) {
-        Picasso.get().load(src).placeholder(R.drawable.loading_animator)
-                .error(R.drawable.logo).into(v);
+        Drawable loader = v.getContext().getResources().getDrawable(R.drawable.loading_animator);
+        Glide.with(v.getContext()).load(src).into(v).onLoadStarted(loader);
+
     }
 
     @BindingAdapter("loadLocalImage")
-    public static void loadLocalImage(ImageView v, String path) {
-        App.L(path);
-        File img = new File(path);
-        if (img.exists())
-            Picasso.get().load("file://" + path).error(R.drawable.logo).into(v);
+    public static void loadLocalImage(ImageView v, String name) {
+        File img = new File(App.VIDEO_DIR, name);
+        if (img.exists()) Glide.with(v.getContext()).load(Uri.fromFile(img)).into(v);
         else App.L("image not exits");
     }
 }

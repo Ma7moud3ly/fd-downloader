@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import com.ma7moud3ly.fd.R;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 
 public class AboutActivity extends BaseActivity {
     TextView version;

@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/E:/Programs/Programming/android/android%20studios/android-studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/slow_motion_video/baseline_slow_motion_video_24.xml" />
+                                      <entry key="url" value="file:/$PROJECT_DIR$/../../../Programs/Programming/android/SDK/icons/material/materialicons/delete_forever/baseline_delete_forever_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="video" />
+                            <entry key="outputName" value="delete" />
                             <entry key="sourceFile" value="E:\Workspace\android\fbvd" />
                           </map>
                         </option>

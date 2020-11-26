@@ -9,7 +9,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.material.snackbar.Snackbar;
 import com.ma7moud3ly.fd.App;
+import com.ma7moud3ly.fd.R;
 import com.ma7moud3ly.fd.adapters.VideosAdapter;
 import com.ma7moud3ly.fd.databinding.ActivityHomeBinding;
 import com.ma7moud3ly.fd.downloader.FBVideo;
@@ -42,13 +44,17 @@ public class HomeActivity extends BaseActivity {
         initSearch();
         initVideoPlayer();
         initVideosRecycler();
-        if (isStoragePermissionGranted())
-            getSavedVideos();
+        if (getIntent().hasExtra("video") && getIntent().hasExtra("position")) {
+            String video = getIntent().getStringExtra("video");
+            Long position = getIntent().getLongExtra("position", 0);
+            observer.playVideo(video, position, this);
+        }
     }
 
     @Override
     protected void onResume() {
         String url = readClipboard();
+        App.L("#" + url);
         if (FBVideo.isFbVideo(url))
             binding.searchLayout.searchBox.setText(url);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
@@ -81,13 +87,18 @@ public class HomeActivity extends BaseActivity {
             }
         });
         binding.searchLayout.searchButton.setOnClickListener(v -> {
-            fetchVideo(binding.searchLayout.searchBox.getText().toString());
+            String url = binding.searchLayout.searchBox.getText().toString();
+            if (url.equals("")) {
+                String paste = readClipboard();
+                binding.searchLayout.searchBox.setText(paste);
+                fetchVideo(paste);
+            } else fetchVideo(url);
             observer.play.set(false);
         });
 
         binding.searchLayout.searchClear.setOnClickListener(v -> {
             binding.searchLayout.searchBox.setText("");
-            clearClipboard();
+            //clearClipboard();
             videoUrl = "";
         });
 
@@ -99,9 +110,7 @@ public class HomeActivity extends BaseActivity {
 
     private void getSavedVideos() {
         observer.noDownloads.set(true);
-        File file = new File(App.SAVE_PATH);
-        if (file.exists() == false) return;
-        File[] files = file.listFiles();
+        File[] files = App.VIDEO_DIR.listFiles();
         if (files == null) return;
         videos.clear();
         for (int i = 0; i < files.length; i++) {
@@ -130,7 +139,6 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                observer.play.set(false);
                 observer.stopVideo(binding.exoplayer);
             }
         });
@@ -150,6 +158,23 @@ public class HomeActivity extends BaseActivity {
     public void back(View v) {
         videoPlayer.stop(true);
         finish();
+    }
+
+    public void deleteVideo(View v) {
+        if (observer.play.get()) {
+            File video_file = new File(videoPlayer.getCurrentMediaItem().mediaId);
+            if (video_file.exists()) {
+                Snackbar snackbar = Snackbar
+                        .make(binding.getRoot(), getString(R.string.confirm_delete), Snackbar.LENGTH_LONG)
+                        .setAction("YES", view -> {
+                            observer.stopVideo(binding.exoplayer);
+                            video_file.delete();
+                            getSavedVideos();
+                        });
+                snackbar.show();
+            }
+        }
+
     }
 
     @Override

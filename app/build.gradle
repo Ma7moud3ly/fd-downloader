@@ -6,9 +6,11 @@ android {
         applicationId "com.ma7moud3ly.fd"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "3.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -49,14 +51,15 @@ dependencies {
 
     //third parties
     implementation 'com.google.android.exoplayer:exoplayer:2.12.1'
-    implementation "com.squareup.picasso:picasso:$picassoVersion"
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation "com.google.android.material:material:$materialVersion"
     implementation "com.android.volley:volley:$volleyVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation 'me.relex:circleindicator:1.2.2@aar'
     implementation 'com.github.ma7moud3ly:UStoreLibrary:v1.4'
-
-
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
+    implementation "com.liulishuo.okdownload:okdownload:1.0.7"
 
 }
 

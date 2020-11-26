@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/floating_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_shape"
+        android:backgroundTint="@color/white"
+        android:clickable="true"
+        android:clipToPadding="false"
+        android:elevation="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            style="@style/float_button"
+            android:clickable="false"
+            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/move" />
+
+
+        <ImageView
+            android:id="@+id/floating_toggle"
+            style="@style/float_button"
+            android:src="@drawable/pause" />
+
+        <ImageView
+            android:id="@+id/floating_restore"
+            style="@style/float_button"
+            android:src="@drawable/visibile" />
+
+        <ImageView
+            android:id="@+id/floating_close"
+            style="@style/float_button"
+            android:src="@drawable/close" />
+    </LinearLayout>
+</LinearLayout>

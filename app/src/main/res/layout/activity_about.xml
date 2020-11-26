@@ -30,6 +30,7 @@
 
             <TextView
                 style="@style/about_text_view"
+                android:textSize="12sp"
                 android:text="@string/app_about"
                 android:textColor="@color/colorPrimary" />
 

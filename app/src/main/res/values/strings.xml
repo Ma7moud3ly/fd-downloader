@@ -3,6 +3,8 @@
     <string name="app_about">Video Downloader For Facebook</string>
 
     <string name="download_enabled">You can download videos now..</string>
+    <string name="download_again">Download This Video Again?</string>
+    <string name="confirm_delete">are your sure for deleting this video?</string>
     <string name="need_storage_permission">You must enable the external storage permission to download the video.</string>
     <string name="invalid_link">invalid video link</string>
 
@@ -18,9 +20,12 @@
     <string name="duration">Duration</string>
     <string name="_share">Share</string>
     <string name="download">Download</string>
+    <string name="cancel_download">Cancel Download</string>
     <string name="copy">Copy</string>
     <string name="play">Play</string>
     <string name="stop">Stop</string>
+    <string name="background">Background</string>
+    <string name="delete">Delete</string>
     <string name="loading">Extracting Video.."</string>
     <string name="video_exists">Video Already Exists</string>
     <string name="video_failed">failed to play this video...</string>

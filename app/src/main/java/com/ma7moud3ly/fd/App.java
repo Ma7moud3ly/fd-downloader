@@ -6,21 +6,20 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.exoplayer2.SimpleExoPlayer;
+import java.io.File;
 
 public class App extends Application {
     private static Context context;
-    public static String APP_DIR;
-    public static String APP_NAME = "F-DOWNLOADER";
-    public static String SAVE_DIR = Environment.DIRECTORY_DOWNLOADS + "/" + APP_NAME;
-    public static String SAVE_PATH = Environment.getExternalStorageDirectory() + "/" + SAVE_DIR;
+    public static File VIDEO_DIR;
     private final static String DEBUG_TAG = "HINT";
 
     @Override
     public void onCreate() {
         super.onCreate();
         this.context = getApplicationContext();
-        APP_DIR = getApplicationInfo().dataDir;
+        VIDEO_DIR = getExternalFilesDir(Environment.DIRECTORY_MOVIES);
+        if (!VIDEO_DIR.exists()) VIDEO_DIR.mkdirs();
+        L(VIDEO_DIR.getPath());
     }
 
     public static void toast(Object o) {
